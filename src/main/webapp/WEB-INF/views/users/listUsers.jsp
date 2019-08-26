@@ -21,7 +21,7 @@
         <tr>
             <td>${user.id}</td>
             <td>${user.firstname}</td>
-            <td>${user.lastname}</td>
+            <td><c:out value ="${user.lastname}"></c:out></td>
             <td>${user.login}</td>
         </tr>
     </c:forEach>

@@ -15,6 +15,8 @@ public class main {
 		BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(),
 				"$2a$12$QFYX2f/bhL9MQ86lCOyAkuy9dZyiGjQs/FHek0YzGkX71PJOwQxXm");
 		System.out.println(result.verified);
+
+		System.out.println(System.getenv("KEY_HMAC"));
 	}
 
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dev.controllers.auth.utils.LoginUtils;
 import dev.domains.User;
 import dev.services.LoginService;
 import dev.services.ServicesFactory;
@@ -32,9 +33,11 @@ public class LoginCrl extends HttpServlet {
 
 		if (userOpt.isPresent() && loginService.verifyPassword(password, userOpt.get().getPassword())) {
 			User user = userOpt.get();
-			user.setPassword("");
+			user.setPassword(null);
 
-			req.getSession().setAttribute("connectedUser", user);
+			LoginUtils loginUtils = new LoginUtils();
+			resp.addCookie(loginUtils.createCookie(user));
+
 			resp.sendRedirect(req.getContextPath() + "/users/list");
 
 		} else {

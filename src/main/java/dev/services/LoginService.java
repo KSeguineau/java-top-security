@@ -11,8 +11,9 @@ import dev.utils.DbUtils;
 public class LoginService {
 
 	public Optional<User> connect(String login, String password) {
-		List<User> results = new DbUtils().executeSelect(String.format("select * from user where login='%s'", login,
-				password), resultSet -> new DbUtils().resultSetToUser(resultSet));
+		String[] values = { login };
+		List<User> results = new DbUtils().executeSelect(String.format("select * from user where login=?"),
+				resultSet -> new DbUtils().resultSetToUser(resultSet), values);
 
 		if (results.size() > 1) {
 			throw new AppException("at least 2 users with same login");
